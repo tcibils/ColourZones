@@ -106,16 +106,51 @@ void moveAllPlayers() {
 void movePlayer(const byte playerID) {
   // If the player is outside of his player zone
   if(playerZones[players[playerID].headPosition.lineCoordinate][players[playerID].headPosition.columnCoordinate] != players[playerID].zoneColour) {
-    
+    // That create a drag based on his position
+    createDragOnPlayerPosition(playerID);
+    // And the player moves from 1 pixel
+    movePlayerByOnePixel(playerID);
   }
-  // Player moves from 1 pixel
-  // That create a drag
 
-  // If the player reached his zone or his drag
-  // Then the drag is reset
-  // And it creates some player zone
-  // The player still moves from 1 pixel
-  
+  // If the player reached back his zone or is in it
+  if(playerZones[players[playerID].headPosition.lineCoordinate][players[playerID].headPosition.columnCoordinate] == players[playerID].zoneColour) {
+    // It creates a player zone
+    createPlayerZone(playerID);
+    // Then the drag is reset
+    resetPlayerDrag(playerID);
+    // The player still moves from 1 pixel
+    movePlayerByOnePixel(playerID);
+  }
+
+  if(/* If the player reached back his drag */ {
+    // It creates some player zone
+    createPlayerZone(playerID);
+    // Then the drag is reset
+    resetPlayerDrag(playerID);
+    // The player still moves from 1 pixel
+    movePlayerByOnePixel(playerID);
+  }  
+}
+
+void createPlayerZone(const byte playerID) {
+  // Should use the drag to create the dedicated zone
+  // Carefull about non-recangular drags...
+}
+
+// Fully resets the player drag to emptiness, and reset the drag increment to 0
+void resetPlayerDrag(const byte playerID) {
+  for(byte i = 0; i < maxDragSize; i++) {
+    players[playerID].drag[i].lineCoordinate = 255;
+    players[playerID].drag[i].columnCoordinate = 255;
+    players[playerID].dragIncrement = 0;
+  }
+}
+
+// Takes the player position, registers it as part of the player drag at the available drag increment space, and increase said increment
+void createDragOnPlayerPosition(const byte playerID) {
+  players[playerID].drag[players[playerID].dragIncrement].lineCoordinate = players[playerID].headPosition.lineCoordinate;
+  players[playerID].drag[players[playerID].dragIncrement].columnCoordinate = players[playerID].headPosition.columnCoordinate;
+  players[playerID].dragIncrement++;
 }
 
 // Moves player by one pixel, depending on his direction
