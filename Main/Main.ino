@@ -104,7 +104,7 @@ byte playerButtonPushed[NUMBER_PLAYERS][12] = {
 // ----------------------------------------------------------------------------------------------------
 
 #define timeSpeed 200
-
+#define maxDragSize 40;
 
 
 // ----------------------------------------------------------------------------------------------------
@@ -117,12 +117,16 @@ struct pointOnMatrix {
   byte columnCoordinate;
 };
 
-pointOnMatrix Player[4] = {
-  {0,0},
-  {31,0},
-  {0,31},
-  {31,31}
-};
+struct Player {
+  pointOnMatrix headPosition;
+  pointOnMatrix drag[maxDragSize];
+  byte headColour;
+  byte colour;
+  byte goingDirection;
+  byte isAlive;                                   // 1 means alive, 0 means dead
+  byte isActive;                                  // 1 means that the player is actually playing, 0 means that he isn't 
+}
+
 
 unsigned long lastMillis = 0;
 unsigned const int growthSpeed = 1500;  // In miliseconds. Can be used to make something happen every X miliseconds.
