@@ -104,12 +104,22 @@ byte playerButtonPushed[NUMBER_PLAYERS][12] = {
 // ----------------------------------------------------------------------------------------------------
 
 #define timeSpeed 200
-#define maxDragSize 40;
+#define maxDragSize 40     // Max 255
+#define NUMBER_PLAYERS 4
 
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
+#define directionUp 0
+#define directionRight 1
+#define directionDown 2
+#define directionLeft 3
+
+#define directionNorth 4
+#define directionEast 5
+#define directionSouth 6
+#define directionWest 7
 
 // Useful struct
 struct pointOnMatrix {
@@ -120,13 +130,16 @@ struct pointOnMatrix {
 struct Player {
   pointOnMatrix headPosition;
   pointOnMatrix drag[maxDragSize];
+  byte dragIncrement;
   byte headColour;
-  byte colour;
+  byte zoneColour;
   byte goingDirection;
   byte isAlive;                                   // 1 means alive, 0 means dead
   byte isActive;                                  // 1 means that the player is actually playing, 0 means that he isn't 
-}
+};
 
+Player players[NUMBER_PLAYERS];           // Contains the players
+byte playerZones[totalDisplayNumberOfRows][totalDisplayNumberOfColumns];
 
 unsigned long lastMillis = 0;
 unsigned const int growthSpeed = 1500;  // In miliseconds. Can be used to make something happen every X miliseconds.
