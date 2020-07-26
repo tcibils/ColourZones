@@ -135,6 +135,13 @@ void movePlayer(const byte playerID) {
 void createPlayerZone(const byte playerID) {
   // Should use the drag to create the dedicated zone
   // Carefull about non-recangular drags...
+
+  // Idea:
+  // For each given point within the potential square of the drag
+  // Query each direction (north, east, south, west)
+  // If I encounter an uneven number of walls of the drag, then that means I am inside
+  // If I encounter an even number of walls of the drag, that would mean I am oustside ?
+  // To be thought about
 }
 
 // Fully resets the player drag to emptiness, and reset the drag increment to 0
