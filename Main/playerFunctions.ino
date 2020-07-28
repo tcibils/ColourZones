@@ -121,7 +121,7 @@ void movePlayer(const byte playerID) {
     }
   }
 
-  if(/* If the player hit his own drag or some drag */ {
+  if(/* If the player hit his own drag or some drag */) {
     // Player dead
   }  
   // In almost all cases, the player will actually move from 1 pixel
@@ -131,6 +131,18 @@ void movePlayer(const byte playerID) {
 void createPlayerZone(const byte playerID) {
   // Should use the drag to create the dedicated zone
   // Carefull about non-recangular drags...
+
+  // Look into points hitting an a polygon ?
+
+  // Basic idea for "outside in": we make big circles on the square where interior and exterior are to define, then smaller and smaller
+  // And each point near an "outside" point, and not on the drag or in the player zone, is outside
+  // We first do that for the external rectangle, in which all "white" points are outside, and all "drag" or "zone" are inside
+  // Then we go one pixel smaller, and each point next to an "Outside" point is defined outside"
+  // We do that again and again, on the same radius, until at some point, this does not provide any new "outside" point.
+  // Then we go one pixel smaller, and do it again
+  // Once we reach a status of 0, we know of all points which are "outside", and can colour as "inside" all others.
+
+  // ---------------------------
 
   // Basic idea for "spilling over": from each point, we "spill" over in all directions, as a squares bigger and bigger around it. 
   // If we reach only player zone or drag, it means we're inside
