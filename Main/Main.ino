@@ -138,6 +138,14 @@ struct Player {
   byte isActive;                                  // 1 means that the player is actually playing, 0 means that he isn't 
 };
 
+struct gamePixel {
+  byte lineCoordinate;
+  byte columnCoordinate;
+  byte playerOwnership;   // Stored as the player colour
+  // byte decided; ??
+  
+};
+
 Player players[NUMBER_PLAYERS];           // Contains the players
 byte playerZones[totalDisplayNumberOfRows][totalDisplayNumberOfColumns];
 
